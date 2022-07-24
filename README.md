@@ -15,7 +15,7 @@ yarn add -D serverless lambda-nextjs-serverless-plugin
 2. Add a `serverless.yml` file (feel free to extend/adapt it beyond this basic template)
 
 ```yml
-service: { your-service-name }
+service: your-service-name
 
 frameworkVersion: "3"
 

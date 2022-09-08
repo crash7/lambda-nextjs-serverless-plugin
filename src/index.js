@@ -7,8 +7,8 @@ class LambdaNextjsPlugin {
 
     this.hooks = {
       "before:package:initialize": this.beforePackage.bind(this),
-      "before:deploy:deploy": this.beforeDeploy.bind(this),
       "before:offline:start:init": this.beforeOfflineStart.bind(this),
+      "after:deploy:deploy": this.afterDeploy.bind(this),
     };
   }
 
@@ -27,7 +27,7 @@ class LambdaNextjsPlugin {
     execFileSync(`${__dirname}/build-bridge.js`, { stdio: "inherit" });
   }
 
-  beforeDeploy() {
+  afterDeploy() {
     const bucket =
       this.serverless.service.resources.Resources.StaticFilesBucket.Properties
         .BucketName;
@@ -35,7 +35,7 @@ class LambdaNextjsPlugin {
     execSync(
       `aws s3 sync .next/static s3://${bucket}/_next/static ${
         profile ? `--profile ${profile}` : ""
-      }`,
+      } --delete`,
       {
         stdio: "inherit",
       }
@@ -43,7 +43,7 @@ class LambdaNextjsPlugin {
     execSync(
       `aws s3 sync public s3://${bucket}/public ${
         profile ? `--profile ${profile}` : ""
-      }`,
+      } --delete`,
       {
         stdio: "inherit",
       }

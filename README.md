@@ -310,7 +310,7 @@ _The format above works for Next.js v12.2, for earlier versions the output needs
 - [ ] Use the standalone output configuration for calling `NextServer`
 - [ ] Create resources automatically to reduce serverless.yml boilerplate
 - [ ] Remove dependency to aws-cli sync command
-- [ ] Assets uploading has a chicken-egg situation if it's the first deployment
+- [x] Assets uploading has a chicken-egg situation if it's the first deployment
 
 ### Feature parity
 

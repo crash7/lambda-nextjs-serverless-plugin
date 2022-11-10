@@ -14,13 +14,17 @@ const compiler = webpack({
   resolve: {
     extensions: [".js"],
   },
+  optimization: {
+    minimize: false,
+  },
   output: {
-    path: path.resolve(".next/standalone"),
+    path: path.resolve(".vercel/output/functions/_error.func"),
     filename: "[name].js",
     libraryTarget: "commonjs2",
   },
   externals: [
     /^aws-sdk/, // Don't include the aws-sdk in bundles as it is already present in the Lambda runtime
+    "./___next_launcher.cjs",
     "next/dist/server/next-server",
   ],
   performance: {

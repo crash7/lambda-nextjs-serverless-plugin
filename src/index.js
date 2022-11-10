@@ -1,5 +1,6 @@
 const { execSync, execFileSync } = require("child_process");
 const { S3 } = require("aws-sdk");
+const { mkdirSync, statSync, writeFileSync } = require("fs");
 
 class LambdaNextjsPlugin {
   constructor(serverless, options) {
@@ -25,8 +26,18 @@ class LambdaNextjsPlugin {
   }
 
   beforePackage() {
-    this.log("Building next app");
-    execSync("node_modules/.bin/next build", { stdio: "inherit" });
+    try {
+      statSync(".vercel/project.json");
+    } catch {
+      mkdirSync(".vercel", { recursive: true });
+      writeFileSync(
+        ".vercel/project.json",
+        JSON.stringify({ projectId: "_", orgId: "_", settings: {} })
+      );
+    }
+    execSync(__dirname + "/../node_modules/.bin/vercel build", {
+      stdio: "inherit",
+    });
     this.log("Building page handler");
     execFileSync(`${__dirname}/build-bridge.js`, { stdio: "inherit" });
   }

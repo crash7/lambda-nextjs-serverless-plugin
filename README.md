@@ -318,4 +318,4 @@ _The format above works for Next.js v12.2, for earlier versions the output needs
 
 ## Credits
 
-- Uses [`serverless-http`](https://www.npmjs.com/package/serverless-http) for the heavy lifting of converting the API Gateway to a Next.js req/res object (and the opposite).
+- Uses a forked version of [`serverless-http`](https://www.npmjs.com/package/serverless-http) for the heavy lifting of converting the API Gateway to a Next.js req/res object (and the opposite).

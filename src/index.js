@@ -40,8 +40,12 @@ class LambdaNextjsPlugin {
     });
     this.log("Building page handler");
     execFileSync(`${__dirname}/build-bridge.js`, { stdio: "inherit" });
+    execSync(
+      "cp .vercel/output/functions/_error.func/bridge.js .vercel/output/functions/api/hello.func/bridge.js"
+    );
   }
 
+  // todo: this can change to use .vercel/output/static
   async uploadFilesToS3() {
     const bucket =
       this.serverless.service.resources.Resources.StaticFilesBucket.Properties
